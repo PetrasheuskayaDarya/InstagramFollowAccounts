@@ -171,7 +171,7 @@ public class MainPage extends AbstractPage {
 	}
 
 	public void randonWaitBeforeAction() throws InterruptedException {
-		Thread.sleep((long) (Math.random() * 2000));
+		Thread.sleep((long) (Math.random() * 30000));
 	}
 
 	public void clickFollowIn90PercentOfCases() throws InterruptedException {

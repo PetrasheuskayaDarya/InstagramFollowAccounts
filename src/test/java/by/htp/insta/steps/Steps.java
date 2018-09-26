@@ -26,7 +26,7 @@ public class Steps {
 		MainPage mainPage = new MainPage(driver);
 		loginPage.openPage();
 		loginPage.login(conf.getLogin(), conf.getPass());
-		mainPage.clickNotNowLink();
+		//mainPage.clickNotNowLink();
 		mainPage.clickNotNowNotifications();
 	}
 
