@@ -25,7 +25,7 @@ import by.htp.insta.steps.Steps;
 
 public class MainPage extends AbstractPage {
 	private final String BASE_URL = "https://mail.ru/login";
-	int numbersOfLikes = 3;
+	int numbersOfAccountsWhoWeFollow = 10;
 
 	public static List<String> hashTags = new ArrayList<String>();
 	public String tag1 = "#dotNET";
@@ -196,7 +196,7 @@ public class MainPage extends AbstractPage {
 			} else if (FollowOrNot() == false) {
 				nextPostButton.click();
 			}
-		} while (count < random_number);
+		} while (count < numbersOfAccountsWhoWeFollow);
 	}
 
 	public void clickFollow() throws InterruptedException {
