@@ -14,7 +14,7 @@ import by.htp.insta.steps.Steps;
 public class FollowAutomation {
 	private Steps steps;
 
-	@BeforeMethod(description = "Init browser", groups = { "likeAutomation" })
+	@BeforeMethod(description = "Init browser", groups = { "FollowAutomation" })
 	public void setUp() throws InterruptedException {
 		steps = new Steps();
 		steps.initBrowser();
