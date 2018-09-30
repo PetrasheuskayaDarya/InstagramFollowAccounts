@@ -23,7 +23,7 @@ public class FollowAutomation {
 	}
 
 	@Test(groups = { "FollowAutomation" })
-	public void FollowAutomation() throws InterruptedException{
+	public void FollowAutomation() throws Exception{
 
 
         //steps.getAllAccountsNameWhoFollowUs();// 1 for checking follow back or not

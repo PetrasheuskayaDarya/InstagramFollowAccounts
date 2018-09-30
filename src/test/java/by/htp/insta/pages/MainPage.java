@@ -1,27 +1,20 @@
 package by.htp.insta.pages;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.mysql.cj.protocol.a.TracingPacketReader;
-
 import by.htp.insta.dao.AccountDao;
 import by.htp.insta.dao.imple.AccountDaoImple;
 import by.htp.insta.entity.Account;
-import by.htp.insta.steps.Steps;
 
 public class MainPage extends AbstractPage {
 	private final String BASE_URL = "https://mail.ru/login";
@@ -158,8 +151,12 @@ public class MainPage extends AbstractPage {
 		return dinamicElement;
 	}
 
-	public void waitForPageLoads() throws InterruptedException {
-		Thread.sleep(3000);
+	public void waitForPageLoads(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void clickOnFirstItemInDropDown() {
@@ -170,36 +167,40 @@ public class MainPage extends AbstractPage {
 		closePostButton.click();
 	}
 
-	public void randonWaitBeforeAction() throws InterruptedException {
-		Thread.sleep((long) (Math.random() * 30000));
+	public void randonWaitBeforeAction(int time) {
+		try {
+			Thread.sleep((long) (Math.random() * time));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void clickFollowIn90PercentOfCases() throws InterruptedException {
+	public void clickFollowIn90PercentOfCases() {
 		double d = Math.random() * 100;
 		if ((d -= 90) < 0) {
-			randonWaitBeforeAction();
+			randonWaitBeforeAction(3000);
 			followButton.click();
 		} else {
-			randonWaitBeforeAction();
+			randonWaitBeforeAction(3000);
 			nextPostButton.click();
 		}
 	}
 
-	public void iteraction() throws InterruptedException {
+	public void iteraction() {
 		firstRecentPost.click();
 		int count = 0;
 		do {
-			if (FollowOrNot() == true) {
+			if (FollowOrNot() == true) {// || FollowAdexinOrNot() == false
 				insertAccountName();
 				clickFollowIn90PercentOfCases();
 				count++;
-			} else if (FollowOrNot() == false) {
+			} else {
 				nextPostButton.click();
 			}
 		} while (count < numbersOfAccountsWhoWeFollow);
 	}
 
-	public void clickFollow() throws InterruptedException {
+	public void clickFollow() {
 		List<String> hashTags = new ArrayList<String>(6);
 
 		hashTags.add(new String(tag1));
@@ -212,7 +213,7 @@ public class MainPage extends AbstractPage {
 		do {
 			searchField.sendKeys(hashTags.get(0));
 			clickOnFirstItemInDropDown();
-			waitForPageLoads();
+			waitForPageLoads(3000);
 			hashTags.remove(0);
 			System.out.println(hashTags);
 			iteraction();
@@ -222,13 +223,46 @@ public class MainPage extends AbstractPage {
 
 	}
 
-	public boolean FollowOrNot() throws InterruptedException {
-		waitForPageLoads();
-		String str1 = followButton.getText();
-		if (str1.equals("Follow")) {
-			return true;
-		} else {
+	public boolean FollowOrNot() {
+		waitForPageLoads(3000);
+		String str1;
+		try {
+			str1 = followButton.getText();
+			if (str1.equals("Follow")) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
+
+		}
+
+	}
+
+	// public boolean FollowOrNot() {
+	// waitForPageLoads(3000);
+	// String str1;
+	// try {
+	// str1 = followButton.getText();
+	// } catch (Exception ex) {
+	// ex.printStackTrace();
+	// return false;
+	// }
+	// if (str1.equals("Follow")) {
+	// return true;
+	// }else {
+	// return false;
+	// }
+	// }
+	public boolean FollowAdexinOrNot() {
+		waitForPageLoads(3000);
+		String str2 = getAccountName();
+		if (str2.equals("adexincom")) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -263,7 +297,7 @@ public class MainPage extends AbstractPage {
 	}
 
 	public void getAllAccountsNameWhoFollowUs() throws InterruptedException {
-		waitForPageLoads();
+		waitForPageLoads(3000);
 		profileIcon.click();
 		linkFollowers.click();
 		String element;

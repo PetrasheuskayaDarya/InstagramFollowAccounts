@@ -26,11 +26,11 @@ public class Steps {
 		MainPage mainPage = new MainPage(driver);
 		loginPage.openPage();
 		loginPage.login(conf.getLogin(), conf.getPass());
-		//mainPage.clickNotNowLink();
+		mainPage.clickNotNowLink();
 		mainPage.clickNotNowNotifications();
 	}
 
-	public void FollowForMarketing() throws InterruptedException {
+	public void FollowForMarketing() throws Exception {
 		MainPage mainPage = new MainPage(driver);
 		mainPage.clickFollow();
 	}
